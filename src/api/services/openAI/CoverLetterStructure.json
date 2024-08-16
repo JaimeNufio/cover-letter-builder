@@ -1,0 +1,108 @@
+{
+    "jobDescription": {
+        "description": "General details specific to the job you are applying too.",
+        "fields": {
+            "companyName": {
+                "description": "Name of the company.",
+                "required": true
+            },
+            "jobTitle": {
+                "description": "Specific job title.",
+                "required": true
+            },
+            "industry": {
+                "description": "industry of the company.",
+                "required": false
+            },
+            "values": {
+                "description": "Some of the company values.",
+                "required": false
+            },
+            "responsibilities": {
+                "description": "Description of responsibilities, expectations.",
+                "required": false
+            },
+            "requirements": {
+                "description": "Specific requirements you want to mention for this job.",
+                "required": false
+            },
+            "keywords": {
+                "description": "Keywords you want to include into the text that don't fit elsewhere.",
+                "required": false
+            }
+        }
+    },
+    "resumeCVExperience": {
+        "many": true,
+        "description": "Information that'd you seen on your resume. Focus on Achievements",
+        "type": {
+            "required": true,
+            "types": [
+                {
+                    "name": "Education",
+                    "description": "Just your school name."
+                },
+                {
+                    "name": "Work History",
+                    "description": "Copy paste your resume bullet points here."
+                },
+                {
+                    "name": "Skills",
+                    "description": "Skills you'd like to mention."
+                },
+                {
+                    "name": "Achievements",
+                    "description": "Achievments you'd like to highlight."
+                },
+                {
+                    "name": "elevatorPitch",
+                    "description": "Optional foreword for the CV you write yourself. (Many people have one already.)"
+                },
+                {
+                    "name": "careerGoals",
+                    "description": "Long-term career aspirations and how this job fits into your career path."
+                }
+            ]
+        },
+        "dates": {
+            "hidden": true,
+            "required": false,
+            "start": {
+                "required": true
+            },
+            "end": {
+                "required": true
+            }
+        }
+    },
+    "personalInfo": {
+        "description": "Details to fill out the 'Letter' part of the Cover Letter. (We don't store anything.)",
+        "FullName": {
+            "required": true
+        },
+        "PhoneNumber": {
+            "required": true
+        },
+        "LinkedIn": {
+            "required": false
+        },
+        "Location": {
+            "required": true
+        }
+    },
+    "companyResearch": {
+        "companyCulture": {
+            "description": "Company mission, vision, or culture.",
+            "required": false
+        },
+        "industryTrends": {
+            "description": "Current trends or challenges in the industry that you can reference.",
+            "required": false,
+            "hidden": true
+        },
+        "Recent News": {
+            "description": "Any recent news, press releases, or announcements about the company.",
+            "required": false
+        }
+    }
+}
