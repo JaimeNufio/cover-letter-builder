@@ -13,6 +13,7 @@
     "prettier"
   ],
   "rules": {
+    "no-restricted-syntax": "off",
     "prettier/prettier": "error",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "react/react-in-jsx-scope": "off" // Optional, for React 17+ projects where importing React is not required
