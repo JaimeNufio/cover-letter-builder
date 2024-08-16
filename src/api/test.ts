@@ -1,3 +1,3 @@
-const openAiService = require('./services');
+const {openAiService} = require('./services');
 
 openAiService.helloWorld()

@@ -1,13 +1,14 @@
 const OpenAI = require('openai')
-const openAiConfig = require('../local.json')
+const keys = require('../local.json')
 const createOpenAIService = require('./openAI')
 
 // Initialize OpenAI with configuration
 const openai = new OpenAI({
-  organization: openAiConfig.organization,
-  project: openAiConfig.project,
-  apiKey: openAiConfig.key
+  organization: keys.OpenAi.organization,
+  project: keys.OpenAi.project,
+  apiKey: keys.OpenAi.key
 });
+
 
 // Export the service
 module.exports.openAiService = createOpenAIService(openai);
