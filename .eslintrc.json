@@ -1,3 +1,20 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended",
+    "plugin:@next/next/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020 // Or later
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/react-in-jsx-scope": "off" // Optional, for React 17+ projects where importing React is not required
+  }
 }

@@ -1,6 +1,7 @@
 {
     "OpenAi":{
         "organization":"",
-        "project":""
+        "project":"",
+        "key":""
     }
 }
