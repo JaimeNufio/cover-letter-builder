@@ -35,5 +35,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#keys
+# keys
 **/local.js
+
+# file generation
+**.pdf
