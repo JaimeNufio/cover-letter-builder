@@ -10,5 +10,6 @@ const client = new OpenAI({
   apiKey: keys.OpenAi.key,
 });
 
+module.exports.promptBuilderService = require("./promptBuilder")();
 module.exports.openAiService = require("./openAI")(client);
 module.exports.pdfExportService = require("./pdfkit")(PDFDocument, blobStream);

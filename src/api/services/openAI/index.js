@@ -1,8 +1,11 @@
-module.exports = (openai) => {
-  async function helloWorld() {
+module.exports = (
+  openai
+  // {promptBuilderService}
+) => {
+  async function genericPrompt(data) {
     const stream = await openai.chat.completions.create({
       model: "gpt-4o-mini",
-      messages: [{ role: "user", content: "Say this is a test" }],
+      messages: [{ role: data.role, content: data.content }],
       stream: true,
     });
 
@@ -12,20 +15,19 @@ module.exports = (openai) => {
   }
 
   async function promptGeneration(promptData) {
-
     const completion = await openai.createChatCompletion({
       model: "gpt-4", // or "gpt-3.5-turbo"
-      messages: [{ role: "user", content: prompt }],
-      max_tokens: 100, // Adjust as needed
+      messages: [{ role: data.role, content: data.content }],
+      max_tokens: 1000, // Adjust as needed
     });
 
     const chatResponse = completion.data.choices[0].message.content;
 
-    return chatResponse
+    return chatResponse;
   }
 
   return {
-    helloWorld,
+    genericPrompt,
     promptGeneration,
   };
 };

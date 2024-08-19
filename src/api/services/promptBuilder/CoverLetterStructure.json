@@ -16,14 +16,11 @@
             },
             "values": {
                 "description": "Some of the company values.",
-                "required": false
+                "required": false,
+                "hidden": true
             },
             "responsibilities": {
-                "description": "Description of responsibilities, expectations.",
-                "required": false
-            },
-            "requirements": {
-                "description": "Specific requirements you want to mention for this job.",
+                "description": "Job requirements/responsibilities, as on the job listing.",
                 "required": false
             },
             "keywords": {
@@ -90,6 +87,7 @@
             "required": true
         }
     },
+    
     "companyResearch": {
         "companyCulture": {
             "description": "Company mission, vision, or culture.",
