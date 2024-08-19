@@ -10,13 +10,11 @@ module.exports = (
         stream: true, // Enable streaming
     });
 
-    console.log(completion)
-
     let chatResponse = '';
     
     for await (const chunk of completion) {
         const content = chunk.choices[0]?.delta?.content || '';
-        process.stdout.write(content); // Optional: Display in real-time
+        // process.stdout.write(content); // Optional: Display in real-time
         chatResponse += content;
     }
 

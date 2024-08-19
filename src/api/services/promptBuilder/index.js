@@ -31,45 +31,68 @@ module.exports = () => {
     return prompt;
   }
 
-  function generateBody() {}
+  function generateBody(data) {
 
-  function generateClosing() {}
+    let prompt = "Write two to three body paragraphs AT MOST for the BODY of the cover letter, in first person. Do not exceed this structure, do not add a conclusion.";
 
-  function generatePrompt(data) {
-    let prompt =
-      "Write me a professional cover letter body text excluding the address, and signature fields.\
-         Focus only on the paragraphs of the letter.\n";
+    prompt += `Cite a couple of examples from your experience that support your ability to be successful in the position or organization. Try not to simply repeat your resume in paragraph form, complement your resume by offering a little more detail about key experiences. Discuss what skills you have developed and connect these back to the target role.`,
 
-    // jobDescription ////////////////////////////////////////////////////////////////////////////////////
+    data.fields.forEach((field)=>{
+      if (field.type == 'workExperience'){
+        prompt += `Consider the following Work Experience at ${field.where} as a ${field.title} from ${field.start} to ${field.end}. In addition, here's the bullet points from my resume for this experience "${field.content}", try and avoid repeating anything here, but instead reword it or use variatons of it while remaining based in what it says.`
+      }
+    })
 
-    prompt += `The cover letter should be for a company named ${data.jobDescription.fields.companyName} \
-            with the role being applied for being ${data.jobDescription.fields.companyName}. \
-            The job has the following responsibilities: ${data.jobDescription.responsibilities}. \
-            Highlight some of them as my strengths. \n`;
+    prompt+= `Also consider what was mentioned in the previous paragraph, and avoid repeating anything: ${data.intro}`
 
-    if (data.jobDescription.industry) {
-      prompt += `Be aware that the is in the ${data.jobDescription.industry} industry.\n`;
-    }
+    prompt = prompt.replace(/[\n\r\t]/g, "");
 
-    if (data.jobDescription.responsibilities) {
-      prompt += `The job has the following responsibilities: ${data.jobDescription.responsibilities}. \
-             Highlight some of them as my strengths.`;
-    }
-
-    if (data.jobDescription.values) {
-      prompt += `Be sure to mention how I exude some of these values, but in a humble way, professional\
-             way: ${data.jobDescription.industry}. `;
-    }
-
-    if (data.jobDescription.values) {
-      prompt += `Be sure to include these keywords in the letter: ${data.jobDescription.industry}. `;
-    }
-
-    /// //////////////////////////////////////////////////////////////////////////////////////////////////
+    return prompt;
   }
 
+  function generateClosing(data) {
+    let prompt = `Consider the following Cover Letter:${data.intro + data.body}. write a simple conclusion for it. Only the conclusion, a single paragraph at most. No formatting. Only a single paragraph for the conclusion. Don't repeat back the prior parts of the cover letter.`
+
+    prompt = prompt.replace(/[\n\r\t]/g, "");
+
+    return prompt
+  }
+
+  // function generatePrompt(data) {
+  //   let prompt =
+  //     "Write me a professional cover letter body text excluding the address, and signature fields.\
+  //        Focus only on the paragraphs of the letter.\n";
+
+  //   // jobDescription ////////////////////////////////////////////////////////////////////////////////////
+
+  //   prompt += `The cover letter should be for a company named ${data.jobDescription.fields.companyName} \
+  //           with the role being applied for being ${data.jobDescription.fields.companyName}. \
+  //           The job has the following responsibilities: ${data.jobDescription.responsibilities}. \
+  //           Highlight some of them as my strengths. \n`;
+
+  //   if (data.jobDescription.industry) {
+  //     prompt += `Be aware that the is in the ${data.jobDescription.industry} industry.\n`;
+  //   }
+
+  //   if (data.jobDescription.responsibilities) {
+  //     prompt += `The job has the following responsibilities: ${data.jobDescription.responsibilities}. \
+  //            Highlight some of them as my strengths.`;
+  //   }
+
+  //   if (data.jobDescription.values) {
+  //     prompt += `Be sure to mention how I exude some of these values, but in a humble way, professional\
+  //            way: ${data.jobDescription.industry}. `;
+  //   }
+
+  //   if (data.jobDescription.values) {
+  //     prompt += `Be sure to include these keywords in the letter: ${data.jobDescription.industry}. `;
+  //   }
+
+  //   /// //////////////////////////////////////////////////////////////////////////////////////////////////
+  // }
+
   return {
-    generatePrompt,
+    // generatePrompt,
     generateIntro,
     generateBody,
     generateClosing,

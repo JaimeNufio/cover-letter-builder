@@ -29,7 +29,7 @@
             }
         }
     },
-    "resumeCVExperience": {
+    "personalExperience": {
         "many": true,
         "description": "Information that'd you seen on your resume. Focus on Achievements",
         "type": {
@@ -60,6 +60,9 @@
                     "description": "Long-term career aspirations and how this job fits into your career path."
                 }
             ]
+        },
+        "content": {
+            "required": true
         },
         "dates": {
             "hidden": true,
