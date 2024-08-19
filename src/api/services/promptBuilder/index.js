@@ -1,19 +1,34 @@
 module.exports = () => {
-  function generateIntro(data) { 
-    let prompt = "Write a singular introduction paragraph for the cover letter, in first person."
+  function generateIntro(data) {
+    let prompt =
+      "Write a singular introduction paragraph for the cover letter, in first person.";
 
-    prompt += `State clearly in your opening sentence the purpose for your letter and a brief professional introduction. `
-           + `Specify why you are interested in that specific position and organization. `
-           + `Provide an overview of the main strengths and skills you will bring to the role.`
+    prompt +=
+      `State clearly in your opening sentence the purpose for your letter and a brief professional introduction. ` +
+      `Specify why you are interested in that specific position and organization. ` +
+      `Provide an overview of the main strengths and skills you will bring to the role.`;
 
-    prompt += `The cover letter is for a company named '${data.fields.companyName} ` 
-            + `where you are applying for the position of '${data.fields.position} ` 
-            + `The job has the following responsibilities: ${data.fields.responsibilities}`
+    if (data.fields.jobDescription){
+      prompt += `The job has the following description: ${data.fields.jobDescription}`
+    }
+
+
+    prompt +=
+      `The cover letter is for a company named '${data.fields.companyName} ` +
+      `where you are applying for the position of '${data.fields.position} ` +
+      `The job has the following responsibilities: ${data.fields.responsibilities}` +
+      ` emphasize some of these, taking keywords from them and obviously restating all of them.` +
+      `Do not add the "Dear Person" part of the letter. Just the first paragraph.`;
+
+    if (data.fields.keywords){
+      prompt += `The following keywords are MANDATORY in the reply: ${data.fields.keywords.join(', ')}.`
+    }
+
+    prompt += `Don't assume personal experience matches perfectly to the job description, but do assume you are a good fit for the job.`
 
     prompt = prompt.replace(/[\n\r\t]/g, "");
 
-    console.log(prompt)
-    
+    return prompt;
   }
 
   function generateBody() {}

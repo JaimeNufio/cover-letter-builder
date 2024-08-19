@@ -1,33 +1,29 @@
 module.exports = (
-  openai
+  openai,
   // {promptBuilderService}
 ) => {
-  async function genericPrompt(data) {
-    const stream = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: data.role, content: data.content }],
-      stream: true,
+  async function promptGeneration(data) {
+    const completion = await openai.chat.completions.create({
+        model: "gpt-4", // or "gpt-3.5-turbo"
+        messages: [{ role: data.role, content: data.content }],
+        max_tokens: 1000, // Adjust as needed
+        stream: true, // Enable streaming
     });
 
-    for await (const chunk of stream) {
-      process.stdout.write(chunk.choices[0]?.delta?.content || "");
+    console.log(completion)
+
+    let chatResponse = '';
+    
+    for await (const chunk of completion) {
+        const content = chunk.choices[0]?.delta?.content || '';
+        process.stdout.write(content); // Optional: Display in real-time
+        chatResponse += content;
     }
-  }
-
-  async function promptGeneration(promptData) {
-    const completion = await openai.createChatCompletion({
-      model: "gpt-4", // or "gpt-3.5-turbo"
-      messages: [{ role: data.role, content: data.content }],
-      max_tokens: 1000, // Adjust as needed
-    });
-
-    const chatResponse = completion.data.choices[0].message.content;
 
     return chatResponse;
-  }
+}
 
   return {
-    genericPrompt,
     promptGeneration,
   };
 };

@@ -5,9 +5,9 @@ const OpenAI = require("openai");
 const keys = require("../local.json");
 
 const client = new OpenAI({
-  organization: keys.OpenAi.organization,
-  project: keys.OpenAi.project,
-  apiKey: keys.OpenAi.key,
+  // organization: keys.OpenAi.organization,
+  // project: keys.OpenAi.project,
+  apiKey: keys.OpenAi.apiKey,
 });
 
 module.exports.promptBuilderService = require("./promptBuilder")();
