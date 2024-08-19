@@ -36,7 +36,8 @@ yarn-error.log*
 next-env.d.ts
 
 # keys
-**/local.js
+/src/api/local.json
+# **/local.js
 
 # file generation
 **.pdf
