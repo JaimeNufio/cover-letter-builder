@@ -48,13 +48,11 @@
     },
     jobData: {
       listing: {
-        name: "Segate",
         description:
           "We are seeking a skilled Network Engineer to join our team. The ideal candidate will be responsible for designing, implementing, and maintaining our network infrastructure. This is a remote position that requires on site work as needed.",
         position: "Software Engineer",
         responsibilities:
           "- Lead and contribute to research projects in the field of quantum engineering and artificial intelligence.- Conduct data mining and analysis to extract valuable insights from large datasets.- Design and implement databases to store and manage research data effectively.- Develop natural language processing algorithms for text analysis.- Collaborate with cross-functional teams to integrate analytics solutions into existing systems.- Execute ETL processes to transform and load data for analysis.- Utilize advanced statistical techniques for modeling and prediction.",
-        keywords: "",
       },
       companyInfo: {
         name: "Some Name",
@@ -66,6 +64,7 @@
         email: "email@gmail.com",
         website: "www.linkedin.com/in/jaimenufio",
       },
+      keywords: "",
     },
     bookends: {
       greeting: "Dear",
@@ -75,4 +74,6 @@
   };
 
   console.log(await assemblerService.build(data));
+  console.log(await assemblerService.assembleMainTextSection(data));
+
 })();

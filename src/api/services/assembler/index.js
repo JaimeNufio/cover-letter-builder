@@ -1,6 +1,6 @@
 module.exports = ({ promptBuilder, openAiService }) => {
-  async function build(data) {
 
+  build = async (data) => {
     const addressSection = assembleAddressSection(data);
 
     return addressSection;
@@ -54,12 +54,35 @@ module.exports = ({ promptBuilder, openAiService }) => {
     return contactSection;
   };
 
-  assembleBodySection = async (data) => {};
+  assembleMainTextSection = async (data) =>{
+    const [introText,bodyText,conclusionText] = await Promise.all(
+        assembleIntroSection(data),
+        assembleBodySection(data),
+        assembleConclusionSection(data),
+    )
+
+    return `\n${introText}\n\n${bodyText}\n\n${conclusionText}\n`
+  }
+
+  assembleIntroSection = async (data) => {
+    const section = promptBuilder.generateIntroPrompt(data)
+    return openAiService.promptGeneration(section)
+  };
+
+  assembleBodySection = async (data) =>{
+    const section = promptBuilder.generateBodyPrompt(data)
+    return openAiService.promptGeneration(section)
+  }
+
+  assembleConclusionSection = async (data) =>{
+    const section = promptBuilder.generateClosingPrompt(data)
+    return openAiService.promptGeneration(section)
+  }
 
   assembleSignOffSection = async (data) => {};
 
   return {
     build,
-    assembleAddressSection,
+    assembleMainTextSection,
   };
 };
