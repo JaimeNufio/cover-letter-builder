@@ -1,4 +1,4 @@
-const PDFDocument = require("pdfkit");
+const pdfKit = require("pdfkit");
 const blobStream = require("blob-stream");
 const OpenAI = require("openai");
 
@@ -12,4 +12,5 @@ const client = new OpenAI({
 
 module.exports.promptBuilderService = require("./promptBuilder")();
 module.exports.openAiService = require("./openAI")(client);
-module.exports.pdfExportService = require("./pdfkit")(PDFDocument, blobStream);
+module.exports.pdfExportService = require("./pdfkit")(pdfKit, blobStream);
+module.exports.assemblerService = require("./assembler")();

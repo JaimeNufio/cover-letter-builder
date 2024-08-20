@@ -5,7 +5,32 @@
     const responsibilities = `- Lead and contribute to research projects in the field of quantum engineering and artificial intelligence.- Conduct data mining and analysis to extract valuable insights from large datasets.- Design and implement databases to store and manage research data effectively.- Develop natural language processing algorithms for text analysis.- Collaborate with cross-functional teams to integrate analytics solutions into existing systems.- Execute ETL processes to transform and load data for analysis.- Utilize advanced statistical techniques for modeling and prediction.`
 
 
-    const promptGenA = promptBuilderService.generateIntro(
+    const userAddress = promptBuilderService.generateAddressBlock(
+        {
+            name: 'Jaime Nufio',
+            addressOne: '555 Somewhere',
+            addressTwo: '555 Somewhere',
+            phone: '732-555-5555',
+            email: 'email@gmail.com',
+            website: 'www.linkedin.com/in/jaimenufio',
+        }
+    )
+
+    const companyAddress = promptBuilderService.generateAddressBlock(
+        {
+            name: 'Some Name',
+            position: 'Hiring manager',
+            companyName: 'some company',
+            addressOne: '555 Somewhere',
+            addressTwo: '555 Somewhere',
+            phone: '732-555-5555',
+            email: 'email@gmail.com',
+            website: 'www.linkedin.com/in/jaimenufio',
+        }
+    )
+
+
+    const promptGenA = promptBuilderService.generateIntroPrompt(
         {
             // jobDescription:{
                 fields:{
@@ -26,7 +51,7 @@
         role: 'system'
     })
 
-    const promptGenB = promptBuilderService.generateBody(
+    const promptGenB = promptBuilderService.generateBodyPrompt(
         {
             intro,
             // personal experience
@@ -74,7 +99,7 @@
         role: 'system'
     })
 
-    const promptGenC = promptBuilderService.generateClosing(
+    const promptGenC = promptBuilderService.generateClosingPrompt(
         {
             intro,
             body
@@ -87,7 +112,7 @@
         role: 'system'
     })
 
-console.log(
+    console.log(
     '---Intro:\n',
     intro,
     '\n --- Body:\n',
@@ -95,5 +120,11 @@ console.log(
     '\n --- Conclusion:\n',
     conclusion,
     '---')
+
+    const data = {
+        body: (`${intro}\n\n${body}\n\n${conclusion}`.replace(/^/gm, '    '))
+    }
+
+    pdfExportService.exportLocal(data)
 
 })();

@@ -33,7 +33,7 @@ module.exports = () => {
 
   function generateBody(data) {
 
-    let prompt = "Write two to three body paragraphs AT MOST for the BODY of the cover letter, in first person. Do not exceed this structure, do not add a conclusion.";
+    let prompt = "Write two body paragraphs AT MOST for the BODY of the cover letter, in first person. Do not exceed this structure, do not add a conclusion.";
 
     prompt += `Cite a couple of examples from your experience that support your ability to be successful in the position or organization. Try not to simply repeat your resume in paragraph form, complement your resume by offering a little more detail about key experiences. Discuss what skills you have developed and connect these back to the target role.`,
 
@@ -42,6 +42,8 @@ module.exports = () => {
         prompt += `Consider the following Work Experience at ${field.where} as a ${field.title} from ${field.start} to ${field.end}. In addition, here's the bullet points from my resume for this experience "${field.content}", try and avoid repeating anything here, but instead reword it or use variatons of it while remaining based in what it says.`
       }
     })
+    
+    prompt+= `Be sure to only summarize the relevant information and keep it short and succient. We only need two paragraphs AT MOST for the body of the letter. Avoid writing more than two paragraphs.`
 
     prompt+= `Also consider what was mentioned in the previous paragraph, and avoid repeating anything: ${data.intro}`
 
@@ -58,41 +60,8 @@ module.exports = () => {
     return prompt
   }
 
-  // function generatePrompt(data) {
-  //   let prompt =
-  //     "Write me a professional cover letter body text excluding the address, and signature fields.\
-  //        Focus only on the paragraphs of the letter.\n";
-
-  //   // jobDescription ////////////////////////////////////////////////////////////////////////////////////
-
-  //   prompt += `The cover letter should be for a company named ${data.jobDescription.fields.companyName} \
-  //           with the role being applied for being ${data.jobDescription.fields.companyName}. \
-  //           The job has the following responsibilities: ${data.jobDescription.responsibilities}. \
-  //           Highlight some of them as my strengths. \n`;
-
-  //   if (data.jobDescription.industry) {
-  //     prompt += `Be aware that the is in the ${data.jobDescription.industry} industry.\n`;
-  //   }
-
-  //   if (data.jobDescription.responsibilities) {
-  //     prompt += `The job has the following responsibilities: ${data.jobDescription.responsibilities}. \
-  //            Highlight some of them as my strengths.`;
-  //   }
-
-  //   if (data.jobDescription.values) {
-  //     prompt += `Be sure to mention how I exude some of these values, but in a humble way, professional\
-  //            way: ${data.jobDescription.industry}. `;
-  //   }
-
-  //   if (data.jobDescription.values) {
-  //     prompt += `Be sure to include these keywords in the letter: ${data.jobDescription.industry}. `;
-  //   }
-
-  //   /// //////////////////////////////////////////////////////////////////////////////////////////////////
-  // }
 
   return {
-    // generatePrompt,
     generateIntro,
     generateBody,
     generateClosing,

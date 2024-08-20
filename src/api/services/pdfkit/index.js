@@ -1,23 +1,33 @@
-const fs = require("fs");
-
 module.exports = (PDFDocument, blobStream) => {
-  async function helloWorld() {
-    const PDFDocument = require("pdfkit");
-    const fs = require("fs");
+  const fs = require("fs");
 
-    // Create a new PDF document
-    const doc = new PDFDocument();
+  // function centerTextWithinMargin(doc, text, yOffset) {
+  //   const pageWidth = doc.page.width;
+  //   const marginLeft = doc.page.margins.left;
+  //   const marginRight = doc.page.margins.right;
+    
+  //   const availableWidth = pageWidth - marginLeft - marginRight;
+  //   const textWidth = doc.widthOfString(text);
+  //   const startX = marginLeft + (availableWidth - textWidth) / 2;
+  //   doc.text(text, startX, yOffset, { align: 'justify' });
+  // }
 
-    // Pipe the PDF document to a file
+  async function exportLocal(data) {
+    const doc = new PDFDocument({
+      size: 'A4',
+      margins: { top: 50, bottom: 50, left: 50, right: 50 } 
+    });
+    
+    // Pipe the PDF document to a file before adding content
     const fileStream = fs.createWriteStream("output.pdf");
     doc.pipe(fileStream);
 
     // Add content to the PDF
-    doc
-      .fontSize(25)
-      .text("Hello, this is a PDF created with PDFKit!", 100, 100);
+    doc.fontSize(11);
+    // centerTextWithinMargin(doc, data.body, 100);
+    doc.text(data.body)
 
-    // Finalize the PDF
+    // Finalize the PDF (this triggers the `finish` event)
     doc.end();
 
     // When the PDF is fully written, log a message
@@ -35,7 +45,7 @@ module.exports = (PDFDocument, blobStream) => {
 
     // Add some content to the PDF
     doc
-      .fontSize(25)
+      .fontSize(14)
       .text(
         "Hello, this is a PDF created with PDFKit and Blob-Stream!",
         100,
@@ -66,6 +76,6 @@ module.exports = (PDFDocument, blobStream) => {
   }
 
   return {
-    helloWorld,
+    exportLocal,
   };
 };
