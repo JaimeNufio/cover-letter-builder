@@ -13,4 +13,4 @@ const client = new OpenAI({
 module.exports.promptBuilderService = require("./promptBuilder")();
 module.exports.openAiService = require("./openAI")(client);
 module.exports.pdfExportService = require("./pdfkit")(pdfKit, blobStream);
-module.exports.assemblerService = require("./assembler")();
+module.exports.assemblerService = require("./assembler")(module.exports);

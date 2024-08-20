@@ -90,7 +90,9 @@
             "required": true
         }
     },
-    
+    "companyInfo":{
+
+    },
     "companyResearch": {
         "companyCulture": {
             "description": "Company mission, vision, or culture.",
