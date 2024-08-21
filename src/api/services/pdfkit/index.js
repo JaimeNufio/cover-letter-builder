@@ -15,7 +15,7 @@ module.exports = (PDFDocument, blobStream) => {
   async function exportLocal(data) {
     const doc = new PDFDocument({
       size: "A4",
-      margins: { top: 50, bottom: 50, left: 50, right: 50 },
+      margins: { top: 30, bottom: 30, left: 30, right: 30 },
     });
 
     // Pipe the PDF document to a file before adding content
@@ -23,7 +23,7 @@ module.exports = (PDFDocument, blobStream) => {
     doc.pipe(fileStream);
 
     // Add content to the PDF
-    doc.fontSize(11);
+    doc.fontSize(10);
     // centerTextWithinMargin(doc, data.body, 100);
     doc.text(data.body);
 
