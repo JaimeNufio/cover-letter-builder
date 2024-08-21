@@ -73,10 +73,8 @@
     },
   };
 
-  text = await assemblerService.build(data);
+  text = await assemblerService.buildAsObject(data);
 
   console.log(text)
-
-  await pdfExportService.exportLocal({body:text})
 
 })();

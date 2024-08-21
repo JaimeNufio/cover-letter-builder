@@ -8,12 +8,20 @@ module.exports = ({ promptBuilderService, openAiService }) => {
     return `${addressSection}\n${mainSection}\n${signOffSection}`;
   }
 
+  buildAsObject = async (data) =>{
+    const addressSection = assembleAddressSection(data);
+    const mainSection = await assembleMainTextSectionAsObject(data)
+    const signOffSection = assembleSignOff(data) //TODO - Make PDF section access this
+
+    return {addressSection,...mainSection,signOffSection}
+  }
+
   assembleSignOff = (data) =>{
     let section = ""
 
     section += `\n\n${data.bookends.closing},\n\n`
     section += `${'_'.repeat(data.applicantData.personalInfo.name.length)}\n` //TODO - Make PDF section access this 
-    section += `${data.applicantData.personalInfo.name}\n`
+    section += `${data.applicantData.personalInfo.name}`
 
     return section
   }
@@ -73,7 +81,17 @@ module.exports = ({ promptBuilderService, openAiService }) => {
     const body = await assembleBodySection(data,intro)
     const conclusion = await assembleConclusionSection(intro,body)
 
+
     return `${intro}\n\n${body}\n\n${conclusion}`
+  }
+
+  assembleMainTextSectionAsObject = async (data) =>{
+    const intro = await assembleIntroSection(data)
+    const body = await assembleBodySection(data,intro)
+    const conclusion = await assembleConclusionSection(intro,body)
+
+
+    return {intro,body,conclusion}
   }
 
   assembleIntroSection = async (data) => {
@@ -93,6 +111,6 @@ module.exports = ({ promptBuilderService, openAiService }) => {
 
   return {
     build,
-    assembleMainTextSection,
+    buildAsObject,
   };
 };
