@@ -74,6 +74,6 @@
   };
 
   console.log(await assemblerService.build(data));
-  console.log(await assemblerService.assembleMainTextSection(data));
+//   console.log(await assemblerService.assembleMainTextSection(data));
 
 })();

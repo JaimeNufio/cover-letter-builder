@@ -1,5 +1,5 @@
 module.exports = () => {
-  function generateIntroPrompt(data) {
+  generateIntroPrompt = (data) => {
     let prompt =
       "Write a singular introduction paragraph for the cover letter, in first person.";
 
@@ -30,13 +30,13 @@ module.exports = () => {
     return prompt;
   }
 
-  function generateBodyPrompt(data,intro = '') {
+   generateBodyPrompt = (data,intro = '') => {
     let prompt =
       "Write two body paragraphs AT MOST for the BODY of the cover letter, in first person. Do not exceed this structure, do not add a conclusion.";
 
     prompt += `Cite a couple of examples from your experience that support your ability to be successful in the position or organization. Try not to simply repeat your resume in paragraph form, complement your resume by offering a little more detail about key experiences. Discuss what skills you have developed and connect these back to the target role.`;
     data.applicantData.experience.forEach((experience) => {
-      if (field.type === "workExperience") {
+      if (experience.type === "workExperience") {
         prompt += `Consider the following Work Experience at ${experience.where} as a ${experience.title} from ${experience.start} to ${experience.end}. In addition, here's the bullet points from my resume for this experience "${experience.content}", try and avoid repeating anything here, but instead reword it or use variatons of it while remaining based in what it says.`;
       }
     });
@@ -52,7 +52,7 @@ module.exports = () => {
     return prompt;
   }
 
-  function generateClosingPrompt(data) {
+  generateClosingPrompt = (data) => {
     let prompt = `Consider the following Cover Letter:${data.intro + data.body}. write a simple conclusion for it. Only the conclusion, a single paragraph at most. No formatting. Only a single paragraph for the conclusion. Don't repeat back the prior parts of the cover letter.`;
 
     prompt = prompt.replace(/[\n\r\t]/g, "");

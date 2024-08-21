@@ -1,12 +1,24 @@
-module.exports = ({ promptBuilder, openAiService }) => {
+module.exports = ({ promptBuilderService, openAiService }) => {
 
   build = async (data) => {
     const addressSection = assembleAddressSection(data);
+    const mainSection = await assembleMainTextSection(data)
+    const signOffSection = assembleSignOff(data) //TODO - Make PDF section access this
 
-    return addressSection;
+    return `${addressSection}\n${mainSection}\n${signOffSection}`;
   }
 
-  assembleAddressSection = async (data) => {
+  assembleSignOff = (data) =>{
+    let section = ""
+
+    section += `\n\n${data.bookends.closing},\n\n`
+    section += `${'_'.repeat(data.applicantData.personalInfo.name.length)}\n` //TODO - Make PDF section access this 
+    section += `${data.applicantData.personalInfo.name}\n`
+
+    return section
+  }
+
+  assembleAddressSection =  (data) => {
     let contactSection = ``;
 
     const applicantData = data.applicantData.personalInfo;
@@ -51,35 +63,33 @@ module.exports = ({ promptBuilder, openAiService }) => {
 
     contactSection += `\n`;
 
+    contactSection += `${data.bookends.greeting} ${companyData.name},\n\n`
+
     return contactSection;
   };
 
   assembleMainTextSection = async (data) =>{
-    const [introText,bodyText,conclusionText] = await Promise.all(
-        assembleIntroSection(data),
-        assembleBodySection(data),
-        assembleConclusionSection(data),
-    )
+    const intro = await assembleIntroSection(data)
+    const body = await assembleBodySection(data,intro)
+    const conclusion = await assembleConclusionSection(intro,body)
 
-    return `\n${introText}\n\n${bodyText}\n\n${conclusionText}\n`
+    return `${intro}\n\n${body}\n\n${conclusion}`
   }
 
   assembleIntroSection = async (data) => {
-    const section = promptBuilder.generateIntroPrompt(data)
+    const section = promptBuilderService.generateIntroPrompt(data)
     return openAiService.promptGeneration(section)
   };
 
-  assembleBodySection = async (data) =>{
-    const section = promptBuilder.generateBodyPrompt(data)
+  assembleBodySection = async (data, intro) =>{
+    const section = promptBuilderService.generateBodyPrompt(data,intro)
     return openAiService.promptGeneration(section)
   }
 
   assembleConclusionSection = async (data) =>{
-    const section = promptBuilder.generateClosingPrompt(data)
+    const section = promptBuilderService.generateClosingPrompt(data)
     return openAiService.promptGeneration(section)
   }
-
-  assembleSignOffSection = async (data) => {};
 
   return {
     build,
